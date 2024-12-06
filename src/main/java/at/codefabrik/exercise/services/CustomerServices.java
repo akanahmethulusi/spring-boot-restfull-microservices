@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 @Service
 public class CustomerServices {
-    private static final String ALREADY_EXISTING = "Customer with firstname: %s and lastname: %s already existing";
     private List<Customer> customers;
+
     public List<Customer> getCustomer(){
         initCustomers();
         return customers;
@@ -27,21 +28,17 @@ public class CustomerServices {
             customer2.setFirstname("Hannes");
             customer2.setLastname("Beweg");
 
-            //customers = Arrays.asList(customer, customer2);
             customers = new ArrayList<>();
             customers.add(customer1);
             customers.add(customer2);
-
         }
     }
 
     public Customer getCustomerById(String id){
-        //Optional<Customer> customerId =
         return customers.stream()
                         .filter(customer -> customer.getId().equals(id))
                         .findFirst()
-                        .orElseThrow(()-> new EntityNotFoundException(String.format("Customer id: %s not found",id)));
-        //return customerId.get();
+                        .orElseThrow(()-> new EntityNotFoundException(String.format("Customer id: %s not found", id)));
     }
 
     public Customer createCustomer(Customer customer) {
@@ -57,7 +54,8 @@ public class CustomerServices {
                 .filter(cus->cus.getLastname().equals(customer.getLastname()))
                 .findFirst()
                 .ifPresent(cus->{
-                        throw new ConflictException(String.format(ALREADY_EXISTING, customer.getFirstname(), customer.getLastname()));
+                        throw new ConflictException(String.format("Customer with firstname: %s and lastname: %s already existing",
+                                customer.getFirstname(), customer.getLastname()));
                     });
     }
 

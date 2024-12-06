@@ -3,8 +3,8 @@ import at.codefabrik.exercise.controller.CustomerController;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 class CustomerServicesTest {
-    private CustomerServices customerServices;
-    private CustomerController customerController;
+    CustomerServices customerServices;
+    CustomerController customerController;
 
     @BeforeEach
     public void setUp(){

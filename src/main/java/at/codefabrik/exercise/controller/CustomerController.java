@@ -2,7 +2,6 @@ package at.codefabrik.exercise.controller;
 
 import at.codefabrik.exercise.model.Customer;
 import at.codefabrik.exercise.services.CustomerServices;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +17,13 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerServices customerServices;
+
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomer(){
         List<Customer> customers = customerServices.getCustomer();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id){
         Customer customerId = customerServices.getCustomerById(id);
